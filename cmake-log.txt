@@ -1,0 +1,78 @@
+-- Using gold linker
+-- Could NOT find Crypto (missing: CRYPTO_LIBRARY CRYPTO_INCLUDEDIR) 
+-- Could NOT find GTest (missing: GTEST_LIBRARY GTEST_INCLUDE_DIR GTEST_MAIN_LIBRARY) 
+-- Checking for module 'wavpack'
+--   Package 'wavpack', required by 'virtual:world', not found
+-- Could NOT find Wavpack (missing: WAVPACK_LIBRARY WAVPACK_INCLUDEDIR) 
+-- ******** TClient ********
+-- Target OS: linux x86_64
+-- Compiler: /usr/bin/c++
+-- Rust version: rustc 1.100.0 (0ef1bc386 2026-11-09)
+-- Build type: Release
+-- Dependencies:
+--  * Curl found
+--  * Freetype found
+--  * Glew not found (using bundled version)
+--  * GTest not found
+--  * Ogg found
+--  * OpenSSL Crypto not found
+--  * Opus found
+--  * Opusfile found
+--  * PNG found
+--  * Python3 found
+--  * SDL2 found
+--  * SQLite3 found
+--  * Wavpack not found
+--  * Zlib not found (using bundled version)
+-- To run the tests, you have to install GTest
+-- Could NOT find Notify (missing: NOTIFY_LIBRARIES NOTIFY_INCLUDE_DIRS) 
+CMake Warning (dev) at CMakeLists.txt:503 (message):
+  DATA does not contain every file from directory data
+Call Stack (most recent call first):
+  CMakeLists.txt:2300 (set_glob)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:520 (message):
+  Entries only present in data:
+  /workspaces/BestClient/data/BestClient/ActayWide-Bold.otf;/workspaces/BestClient/data/BestClient/keystrokes/mouse.png;/workspaces/BestClient/data/BestClient/keystrokes/wasd.png
+Call Stack (most recent call first):
+  CMakeLists.txt:2300 (set_glob)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:503 (message):
+  GAME_CLIENT does not contain every file from directory src/game/client
+Call Stack (most recent call first):
+  CMakeLists.txt:531 (set_glob)
+  CMakeLists.txt:2897 (set_src)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:511 (message):
+  Entries only present in GAME_CLIENT:
+  /workspaces/BestClient/src/game/client/components/bestclient/motion_blur_opengl.inl;/workspaces/BestClient/src/game/client/components/bestclient/motion_blur_vulkan.inl;/workspaces/BestClient/src/game/client/components/bestclient/motion_blur_vulkan_members.inl;/workspaces/BestClient/src/game/client/components/bestclient/motion_blur_vulkan_state.inl
+Call Stack (most recent call first):
+  CMakeLists.txt:531 (set_glob)
+  CMakeLists.txt:2897 (set_src)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:520 (message):
+  Entries only present in src/game/client:
+  /workspaces/BestClient/src/game/client/bc_menu_badges.h;/workspaces/BestClient/src/game/client/components/bestclient/clientindicator/version_label.h
+Call Stack (most recent call first):
+  CMakeLists.txt:531 (set_glob)
+  CMakeLists.txt:2897 (set_src)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring done (0.7s)
+CMake Error: The following variables are used in this project, but they are set to NOTFOUND.
+Please set them or make sure they are set and tested correctly in the CMake files:
+/workspaces/BestClient/VULKAN_INCLUDE_DIRS
+   used as include directory in directory /workspaces/BestClient
+/workspaces/BestClient/WAVPACK_INCLUDEDIR
+   used as include directory in directory /workspaces/BestClient
+VULKAN_LIBRARIES
+    linked by target "game-client" in directory /workspaces/BestClient
+WAVPACK_LIBRARY (ADVANCED)
+    linked by target "game-client" in directory /workspaces/BestClient
+
+-- Generating done (0.1s)
+CMake Generate step failed.  Build files cannot be regenerated correctly.
