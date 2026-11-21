@@ -628,3 +628,17 @@ MACRO_CONFIG_INT(BcKeybindMapFormat, bc_keybind_map_format, 2, 0, 2, CFGFLAG_CLI
 
 // Profiler
 MACRO_CONFIG_INT(BcProfiler, bc_profiler, 0, 0, 1, CFGFLAG_CLIENT, "Show the BestClient profiler overlay")
+
+// Alperen Menu - Blatant
+MACRO_CONFIG_INT(AlperenAimbot, alperen_aimbot, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Aimbot training toggle")
+MACRO_CONFIG_INT(AlperenHookbot, alperen_hookbot, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Hookbot training toggle")
+MACRO_CONFIG_INT(AlperenAutoFire, alperen_auto_fire, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Auto fire demo toggle")
+MACRO_CONFIG_INT(AlperenAutoHammer, alperen_auto_hammer, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Auto hammer demo toggle")
+MACRO_CONFIG_INT(AlperenAimAssist, alperen_aim_assist, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Aim assist training toggle")
+MACRO_CONFIG_INT(AlperenTargetSelection, alperen_target_selection, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Target selection training toggle")
+
+// Alperen Menu - Avoid
+MACRO_CONFIG_INT(AlperenPlayerDetection, alperen_player_detection, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Player detection toggle")
+MACRO_CONFIG_INT(AlperenDangerWarning, alperen_danger_warning, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Danger zone warning toggle")
+MACRO_CONFIG_INT(AlperenSafeDistance, alperen_safe_distance, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Safe distance toggle")
+MACRO_CONFIG_INT(AlperenAvoidIndicator, alperen_avoid_indicator, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Avoidance indicator toggle")

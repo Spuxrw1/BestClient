@@ -804,7 +804,7 @@ public:
 		PAGE_NETWORK,
 		PAGE_GHOST,
 		PAGE_CHANGELOG, // bestclient
-
+PAGE_ALPEREN_MENU,
 		PAGE_LENGTH,
 	};
 
@@ -873,7 +873,7 @@ public:
 		// bestclient
 		SMALL_TAB_BROWSER_FRIENDS,
 		SMALL_TAB_CHANGELOG, // bestclient
-
+SMALL_TAB_ALPEREN,
 		SMALL_TAB_LENGTH,
 	};
 
