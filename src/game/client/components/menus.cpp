@@ -41,7 +41,7 @@
 #include <game/client/components/key_binder.h>
 #include <game/client/components/menu_background.h>
 #include <game/client/components/sounds.h>
-#include <game/client/gameclient.h>
+#include <game/client/ui_listbox.h>
 #include <game/client/ui_listbox.h>
 #include <game/localization.h>
 
