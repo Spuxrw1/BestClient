@@ -2,6 +2,7 @@
 /* If you are missing that file, acquire a complete release at teeworlds.com.                */
 
 #include "menus.h"
+#include <game/client/gameclient.h>
 
 // bestclient
 #include <game/client/components/bestclient/menu_media_background.h>
