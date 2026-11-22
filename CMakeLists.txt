@@ -2903,6 +2903,7 @@ if(CLIENT)
     animstate.cpp
     animstate.h
     assets.cpp
+    bc_menu_badges.h
     component.cpp
     component.h
     components/background.cpp
@@ -3035,6 +3036,7 @@ if(CLIENT)
     components/bestclient/clientindicator/presence_cache.cpp
     components/bestclient/clientindicator/presence_cache.h
     components/bestclient/clientindicator/protocol.h
+    components/bestclient/clientindicator/version_label.h
     components/bestclient/voice/protocol.h
     components/bestclient/voice/voice.cpp
     components/bestclient/voice/voice.h
@@ -3162,6 +3164,7 @@ if(CLIENT)
     components/mapsounds.h
     components/menu_background.cpp
     components/menu_background.h
+    components/menus.cpp
     components/menus.h
     components/menus_browser.cpp
     components/menus_demo.cpp
