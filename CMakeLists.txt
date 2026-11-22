@@ -1347,6 +1347,17 @@ endif()
 ########################################################################
 
 set(EXPECTED_DATA
+  BestClient/ActayWide-Bold.otf
+  BestClient/bc_dev_icon.png
+  BestClient/bc_fake_icon.png
+  BestClient/bc_icon.png
+  BestClient/bc_light_icon.png
+  BestClient/gui_logo.png
+  BestClient/keystrokes/mouse.png
+  BestClient/keystrokes/wasd.png
+  BestClient/languages/russian.txt
+  BestClient/languages/simplified_chinese.txt
+  BestClient/trollface.png
   # tidy-alphabetical-start
   announcement.txt
   arrow.png
@@ -1486,14 +1497,7 @@ set(EXPECTED_DATA
   audio/wp_switch-03.wv
   autoexec_server.cfg
   background_noise.png
-  BestClient/bc_dev_icon.png
-  BestClient/bc_fake_icon.png
-  BestClient/bc_icon.png
-  BestClient/bc_light_icon.png
-  BestClient/gui_logo.png
-  BestClient/languages/russian.txt
-  BestClient/languages/simplified_chinese.txt
-  BestClient/trollface.png
+  
   blob.png
   censorlist.txt
   communityicons/none.png
@@ -3158,7 +3162,6 @@ if(CLIENT)
     components/mapsounds.h
     components/menu_background.cpp
     components/menu_background.h
-    components/menus.cpp
     components/menus.h
     components/menus_browser.cpp
     components/menus_demo.cpp
