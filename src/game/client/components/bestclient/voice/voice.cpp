@@ -41,10 +41,6 @@
 #include <limits>
 #include <unordered_set>
 
-// Explicitly instantiate the nested PCM ring buffers used by voice playback.
-template class CVoiceChat::CFixedSampleRingBuffer<BestClientVoice::FRAME_SIZE * 8>;
-template class CVoiceChat::CFixedSampleRingBuffer<BestClientVoice::SAMPLE_RATE * 2>;
-
 namespace
 {
 	constexpr int CAPTURE_READ_SAMPLES = 4096;
