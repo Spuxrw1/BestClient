@@ -2941,9 +2941,9 @@ if(CLIENT)
     components/bestclient/chat_scroll.h
     components/bestclient/clientindicator/browser_cache.cpp
     components/bestclient/clientindicator/browser_cache.h
-    components/bestclient/clientindicator/client_indicator_sync.h
     components/bestclient/clientindicator/client_indicator.cpp
     components/bestclient/clientindicator/client_indicator.h
+    components/bestclient/clientindicator/client_indicator_sync.h
     components/bestclient/clientindicator/presence_cache.cpp
     components/bestclient/clientindicator/presence_cache.h
     components/bestclient/clientindicator/protocol.h
@@ -3022,9 +3022,9 @@ if(CLIENT)
     components/bestclient/inputs.h
     components/bestclient/jelly_tee.cpp
     components/bestclient/jelly_tee.h
-    components/bestclient/keybind_map_ui.h
     components/bestclient/keybind_map.cpp
     components/bestclient/keybind_map.h
+    components/bestclient/keybind_map_ui.h
     components/bestclient/keystrokes.cpp
     components/bestclient/keystrokes.h
     components/bestclient/laser_glow.cpp
@@ -3038,12 +3038,12 @@ if(CLIENT)
     components/bestclient/menus_bestclient.cpp
     components/bestclient/menus_fx.cpp
     components/bestclient/menus_games.cpp
-    components/bestclient/motion_blur_opengl.h
     components/bestclient/motion_blur.h
-    components/bestclient/music_player_lyrics.cpp
-    components/bestclient/music_player_lyrics.h
+    components/bestclient/motion_blur_opengl.h
     components/bestclient/music_player.cpp
     components/bestclient/music_player.h
+    components/bestclient/music_player_lyrics.cpp
+    components/bestclient/music_player_lyrics.h
     components/bestclient/nuke_vfx.cpp
     components/bestclient/optimizer.cpp
     components/bestclient/optimizer.h
@@ -3093,11 +3093,11 @@ if(CLIENT)
     components/bestclient/visualizer/service.h
     components/bestclient/visualizer/smoother.cpp
     components/bestclient/visualizer/smoother.h
+    components/bestclient/visualizer/source.h
     components/bestclient/visualizer/source_passive.cpp
     components/bestclient/visualizer/source_priority.h
     components/bestclient/visualizer/source_pulse.cpp
     components/bestclient/visualizer/source_wasapi.cpp
-    components/bestclient/visualizer/source.h
     components/bestclient/visualizer/types.h
     components/bestclient/voice/protocol.h
     components/bestclient/voice/voice.cpp
@@ -3138,10 +3138,10 @@ if(CLIENT)
     components/freezebars.h
     components/ghost.cpp
     components/ghost.h
-    components/hud_layout.cpp
-    components/hud_layout.h
     components/hud.cpp
     components/hud.h
+    components/hud_layout.cpp
+    components/hud_layout.h
     components/important_alert.cpp
     components/important_alert.h
     components/infomessages.cpp
@@ -3160,11 +3160,14 @@ if(CLIENT)
     components/mapsounds.h
     components/menu_background.cpp
     components/menu_background.h
+    components/menus.cpp
+    components/menus.h
     components/menus_browser.cpp
     components/menus_demo.cpp
+    components/menus_ingame.cpp
     components/menus_ingame_touch_controls.cpp
     components/menus_ingame_touch_controls.h
-    components/menus_ingame.cpp
+    components/menus_settings.cpp
     components/menus_settings_appearance.cpp
     components/menus_settings_assets.cpp
     components/menus_settings_controls.cpp
@@ -3178,11 +3181,8 @@ if(CLIENT)
     components/menus_settings_sound.cpp
     components/menus_settings_tee.cpp
     components/menus_settings_tee7.cpp
-    components/menus_settings.cpp
     components/menus_start.cpp
     components/menus_start.h
-    components/menus.cpp
-    components/menus.h
     components/motd.cpp
     components/motd.h
     components/nameplates.cpp
@@ -3205,10 +3205,10 @@ if(CLIENT)
     components/spectator.h
     components/statboard.cpp
     components/statboard.h
-    components/tclient/bg_draw_file.cpp
-    components/tclient/bg_draw_file.h
     components/tclient/bg_draw.cpp
     components/tclient/bg_draw.h
+    components/tclient/bg_draw_file.cpp
+    components/tclient/bg_draw_file.h
     components/tclient/bindchat.cpp
     components/tclient/bindchat.h
     components/tclient/bindwheel.cpp
@@ -3293,6 +3293,8 @@ if(CLIENT)
     sixup_translate_snapshot.cpp
     skin.cpp
     skin.h
+    ui.cpp
+    ui.h
     ui_listbox.cpp
     ui_listbox.h
     ui_popups.cpp
@@ -3300,8 +3302,6 @@ if(CLIENT)
     ui_rect.h
     ui_scrollregion.cpp
     ui_scrollregion.h
-    ui.cpp
-    ui.h
     # tidy-alphabetical-end
   )
   set_src(GAME_EDITOR GLOB_RECURSE src/game/editor
