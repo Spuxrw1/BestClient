@@ -1022,6 +1022,7 @@ private:
 	void RenderSettingsBestClientFun(CUIRect MainView);
 	// bestclient
 	void RenderSettingsBestClientInfo(CUIRect MainView); // bestclient
+	void RenderSettingsBestClientAlperen(CUIRect MainView);
 	void RenderChangelog(CUIRect MainView); // bestclient
 	void RenderSettingsBestClientConfigPresets(CUIRect MainView); // bestclient
 	void RenderSettingsBestClientChatMediaBlock(CUIRect &Column); // bestclient
