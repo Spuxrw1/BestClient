@@ -4810,8 +4810,9 @@ foreach(target ${TARGETS_OWN})
       target_compile_definitions(${target} PRIVATE NOGDI) # wingdi.h shouldn't define the name ERROR
     endif()
     # 0x0501 (Windows XP) is required for mingw to get getaddrinfo to work
-    # 0x0600 (Windows Vista) is required to use RegGetValueW and RegDeleteTreeW
-    target_compile_definitions(${target} PRIVATE NTDDI_VERSION=0x06020000) # Minimum OS version (new macro, since Vista)
+    # 0x0600 (Windows Vista) is required to use RegGetValueW and RegDeleteTreeW.
+    # 0x0602 (Windows 8) is required by Rust's WaitOnAddress synchronization APIs.
+    target_compile_definitions(${target} PRIVATE NTDDI_VERSION=0x06020000) # Minimum OS version (new macro)
     target_compile_definitions(${target} PRIVATE _WIN32_WINNT=0x0602) # Minimum OS version (old macro, both must be defined)
     target_compile_definitions(${target} PRIVATE UNICODE) # Windows headers
     target_compile_definitions(${target} PRIVATE _UNICODE) # C-runtime
