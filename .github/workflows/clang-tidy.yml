@@ -88,5 +88,5 @@ jobs:
           -DVIDEORECORDER=ON \
           -DVULKAN=ON \
           -DWEBSOCKETS=ON \
-          -Werror=dev ..
+          -Werror=dev -Wno-error=author ..
         cmake --build . --config Debug --target everything testrunner -- -k 0

@@ -117,9 +117,14 @@ inline void CopyTree(const char *pSrc, const char *pDst, const std::function<voi
 			return;
 		}
 		char aBuf[65536];
-		size_t Read;
-		while((Read = fread(aBuf, 1, sizeof(aBuf), pIn)) > 0)
-			fwrite(aBuf, 1, Read, pOut);
+		while(!feof(pIn) && !ferror(pIn))
+		{
+			const size_t Read = fread(aBuf, 1, sizeof(aBuf), pIn);
+			if(Read == 0)
+				break;
+			if(fwrite(aBuf, 1, Read, pOut) != Read)
+				break;
+		}
 		fclose(pIn);
 		fclose(pOut);
 		chmod(pDst, SrcSt.st_mode & 0777);
