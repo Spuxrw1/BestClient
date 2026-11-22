@@ -2643,11 +2643,11 @@ void CVoiceChat::ProcessVoiceRelayPacket(const uint8_t *pRawData, int DataSize, 
 	Peer.m_LastReceiveTick = Now;
 	if(!IsPositionWithinRadiusFilter(Peer.m_Position))
 	{
-		const bool HadBufferedAudio = Peer.m_DecodedPcm.Size() > 0;
+		// DiscardFront returns the queued sample count and avoids a Clang 21 frontend crash
+		// in the nested ring-buffer Size() accessor.
+		const bool HadBufferedAudio = Peer.m_DecodedPcm.DiscardFront(static_cast<size_t>(-1)) > 0;
 		const bool WasTalking = Peer.m_LastVoiceTick > 0;
 		Peer.m_LastVoiceTick = 0;
-		if(HadBufferedAudio)
-			Peer.m_DecodedPcm.Clear();
 		if(Peer.m_HasSequence)
 		{
 			Peer.m_HasSequence = false;

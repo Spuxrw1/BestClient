@@ -116,6 +116,7 @@ jobs:
         sudo apt-get install cmake libmariadb-dev libwebsockets-dev mariadb-server -y
         sudo systemctl stop mysql
         sudo rm -rf /var/lib/mysql/
+        sudo install -d -o mysql -g mysql /var/lib/mysql /var/run/mysqld
         sudo mysql_install_db --user=mysql --datadir=/var/lib/mysql/
         cd /usr; sudo mysqld_safe --datadir='/var/lib/mysql/' --no-watch
         sleep 10
@@ -385,6 +386,7 @@ jobs:
         export ANDROID_HOME="/home/runner/Android/Sdk"
         unset ANDROID_SDK_ROOT
         export PATH=/home/runner/cmake/bin:$PATH
+        chmod +x scripts/android/cmake_android.sh
         scripts/android/cmake_android.sh all DDNet org.ddnet.client Release build-android
         mkdir artifacts
         mv build-android/DDNet.apk artifacts
@@ -429,7 +431,7 @@ jobs:
       run: |
         export PATH=/home/runner/cmake/bin:$PATH
         source emsdk/emsdk_env.sh
-        emcmake cmake -H. -G "Unix Makefiles" -B build-emscripten-headless -DCMAKE_BUILD_TYPE=Debug -DVIDEORECORDER=OFF -DVULKAN=OFF -DSERVER=OFF -DTOOLS=OFF -DHEADLESS_CLIENT=ON -DPREFER_BUNDLED_LIBS=ON
+        emcmake cmake -H. -G "Unix Makefiles" -B build-emscripten-headless -DCMAKE_BUILD_TYPE=Debug -DVIDEORECORDER=OFF -DVULKAN=OFF -DSERVER=OFF -DTOOLS=OFF -DHEADLESS_CLIENT=ON -DDISCORD=OFF -DPREFER_BUNDLED_LIBS=ON
         cmake --build build-emscripten-headless --target game-client -j$(nproc)
 
     - name: Test headless Emscripten client
@@ -450,7 +452,7 @@ jobs:
         export PATH=/home/runner/cmake/bin:$PATH
         source emsdk/emsdk_env.sh
         # -G "Unix Makefiles" required due to https://gitlab.kitware.com/cmake/cmake/-/issues/16395
-        emcmake cmake -H. -G "Unix Makefiles" -B build-emscripten-release -DCMAKE_BUILD_TYPE=Release -DVIDEORECORDER=OFF -DVULKAN=OFF -DSERVER=OFF -DTOOLS=OFF -DPREFER_BUNDLED_LIBS=ON
+        emcmake cmake -H. -G "Unix Makefiles" -B build-emscripten-release -DCMAKE_BUILD_TYPE=Release -DVIDEORECORDER=OFF -DVULKAN=OFF -DSERVER=OFF -DTOOLS=OFF -DDISCORD=OFF -DPREFER_BUNDLED_LIBS=ON
         cmake --build build-emscripten-release --target game-client -j$(nproc)
         cmake --build build-emscripten-release --target package_default
         mkdir artifacts
@@ -485,7 +487,9 @@ jobs:
           workspaces: ./
 
     - name: Build iOS simulator app in debug mode
-      run: scripts/ios/cmake_ios.sh sim-arm64 DDNet org.ddnet.client Debug build-ios-sim
+      run: |
+        chmod +x scripts/ios/cmake_ios.sh
+        scripts/ios/cmake_ios.sh sim-arm64 DDNet org.ddnet.client Debug build-ios-sim
 
     - name: Smoke test iOS simulator app in debug mode
       timeout-minutes: 15
@@ -498,7 +502,9 @@ jobs:
         grep -q "config: saved to settings_ddnet.cfg" simulator-console.log
 
     - name: Build iOS device app in release mode
-      run: scripts/ios/cmake_ios.sh device DDNet org.ddnet.client Release build-ios-device
+      run: |
+        chmod +x scripts/ios/cmake_ios.sh
+        scripts/ios/cmake_ios.sh device DDNet org.ddnet.client Release build-ios-device
 
     - name: Package
       run: |

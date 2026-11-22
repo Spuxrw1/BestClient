@@ -4756,6 +4756,11 @@ foreach(target ${TARGETS})
 endforeach()
 
 foreach(target ${TARGETS_LINK})
+  if(TARGET_OS STREQUAL "windows")
+    # Rust's Windows standard library uses WaitOnAddress/WakeByAddress*.
+    # These APIs are provided by Synchronization.lib (Windows 8+).
+    target_link_libraries(${target} synchronization)
+  endif()
   if(MSVC)
     set_property(TARGET ${target} APPEND PROPERTY LINK_FLAGS /SAFESEH:NO) # Disable SafeSEH because the shipped libraries don't support it (would cause error LNK2026 otherwise).
   endif()
@@ -4806,8 +4811,8 @@ foreach(target ${TARGETS_OWN})
     endif()
     # 0x0501 (Windows XP) is required for mingw to get getaddrinfo to work
     # 0x0600 (Windows Vista) is required to use RegGetValueW and RegDeleteTreeW
-    target_compile_definitions(${target} PRIVATE NTDDI_VERSION=0x06000000) # Minimum OS version (new macro, since Vista)
-    target_compile_definitions(${target} PRIVATE _WIN32_WINNT=0x0600) # Minimum OS version (old macro, both must be defined)
+    target_compile_definitions(${target} PRIVATE NTDDI_VERSION=0x06020000) # Minimum OS version (new macro, since Vista)
+    target_compile_definitions(${target} PRIVATE _WIN32_WINNT=0x0602) # Minimum OS version (old macro, both must be defined)
     target_compile_definitions(${target} PRIVATE UNICODE) # Windows headers
     target_compile_definitions(${target} PRIVATE _UNICODE) # C-runtime
   endif()

@@ -1,4 +1,8 @@
 /* Copyright © 2026 BestProject Team */
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wmismatched-tags"
+#endif
+
 #include "bestclient.h"
 
 #include "chat_qol.h"
