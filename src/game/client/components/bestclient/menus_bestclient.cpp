@@ -52,6 +52,7 @@ enum
 	BESTCLIENT_TAB_OTHERS,
 	BESTCLIENT_TAB_CONFIGS,
 	BESTCLIENT_TAB_INFO,
+	BESTCLIENT_TAB_ALPEREN,
 	NUM_BESTCLIENT_TABS,
 };
 
@@ -752,6 +753,7 @@ void CMenus::RenderSettingsBestClient(CUIRect MainView)
 		BcLocalize("Others"),
 		BcLocalize("Configs"),
 		BcLocalize("Info"),
+		"Alperen Menü",
 	};
 	const int aTabOrder[NUM_BESTCLIENT_TABS] = {
 		BESTCLIENT_TAB_VISUALS,
@@ -759,6 +761,7 @@ void CMenus::RenderSettingsBestClient(CUIRect MainView)
 		BESTCLIENT_TAB_OTHERS,
 		BESTCLIENT_TAB_CONFIGS,
 		BESTCLIENT_TAB_INFO,
+		BESTCLIENT_TAB_ALPEREN,
 	};
 
 	CButtonContainer *apVisibleButtons[NUM_BESTCLIENT_TABS];
@@ -839,6 +842,8 @@ void CMenus::RenderSettingsBestClient(CUIRect MainView)
 			RenderSettingsBestClientConfigPresets(Content);
 		else if(Tab == BESTCLIENT_TAB_INFO)
 			RenderSettingsBestClientInfo(Content);
+		else if(Tab == BESTCLIENT_TAB_ALPEREN)
+			RenderSettingsBestClientAlperen(Content);
 	};
 
 	// bestclient
@@ -4770,6 +4775,7 @@ void CMenus::RenderSettingsBestClientInfo(CUIRect MainView)
 		BcLocalize("Others"),
 		BcLocalize("Configs"),
 		BcLocalize("Info"),
+		"Alperen Menü",
 	};
 	const int aTabOrder[NUM_BESTCLIENT_TABS] = {
 		BESTCLIENT_TAB_VISUALS,
@@ -4799,6 +4805,45 @@ void CMenus::RenderSettingsBestClientInfo(CUIRect MainView)
 	}
 	const int HideableRows = (HideableTabCount + 1) / 2;
 	RightView.HSplitTop(LineSize * (HideableRows + 0.5f), nullptr, &RightView);
+}
+
+
+void CMenus::RenderSettingsBestClientAlperen(CUIRect MainView)
+{
+	constexpr float LineSize = 24.0f;
+	constexpr float Margin = 8.0f;
+	static int s_AimbotTraining = 0;
+	static int s_AvoidPlayerDetection = 0;
+	static int s_AvoidDangerWarning = 0;
+	static int s_AvoidSafeDistance = 0;
+	static int s_AvoidIndicator = 0;
+	static CButtonContainer s_HacksBlock;
+	static CButtonContainer s_AvoidBlock;
+	CUIRect Block, Row, Label;
+
+	MainView.HSplitTop(30.0f, &Block, &MainView);
+	BestClientUiTheme::DrawUiBlock(&Block, IGraphics::CORNER_ALL, 10.0f);
+	Block.Margin(Margin, &Block);
+	Block.HSplitTop(LineSize, &Row, &Block);
+	Ui()->DoLabel(&Row, BcLocalize("Hileler"), 20.0f, TEXTALIGN_ML);
+	Block.HSplitTop(4.0f, nullptr, &Block);
+	Block.HSplitTop(LineSize, &Row, &Block);
+	DoButton_CheckBoxAutoVMarginAndSet(&s_HacksBlock, BcLocalize("Aimbot Training (UI only)"), &s_AimbotTraining, &Row, 0.0f);
+
+	MainView.HSplitTop(Margin, nullptr, &MainView);
+	MainView.HSplitTop(154.0f, &Block, &MainView);
+	BestClientUiTheme::DrawUiBlock(&Block, IGraphics::CORNER_ALL, 10.0f);
+	Block.Margin(Margin, &Block);
+	Block.HSplitTop(LineSize, &Row, &Block);
+	Ui()->DoLabel(&Row, BcLocalize("Avoid"), 20.0f, TEXTALIGN_ML);
+	Block.HSplitTop(4.0f, nullptr, &Block);
+	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidPlayerDetection, BcLocalize("Player detection (UI only)"), &s_AvoidPlayerDetection, &Block, 2.0f);
+	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidDangerWarning, BcLocalize("Danger warning (UI only)"), &s_AvoidDangerWarning, &Block, 2.0f);
+	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidSafeDistance, BcLocalize("Safe distance (UI only)"), &s_AvoidSafeDistance, &Block, 2.0f);
+	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidIndicator, BcLocalize("Avoid indicator (UI only)"), &s_AvoidIndicator, &Block, 2.0f);
+
+	MainView.HSplitTop(Margin, nullptr, &MainView);
+	Ui()->DoLabel(&MainView, BcLocalize("These are interface-only practice options; no automated aiming or gameplay actions are performed."), 12.0f, TEXTALIGN_ML);
 }
 
 void CMenus::RenderSettingsBestClientWeaponGlow(CUIRect &Column)
