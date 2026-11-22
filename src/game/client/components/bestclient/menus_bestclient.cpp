@@ -4823,7 +4823,7 @@ void CMenus::RenderSettingsBestClientAlperen(CUIRect MainView)
 	BestClientUiTheme::DrawUiBlock(&Block, IGraphics::CORNER_ALL, 10.0f);
 	Block.Margin(Margin, &Block);
 	Block.HSplitTop(LineSize, &Row, &Block);
-	Ui()->DoLabel(&Row, BcLocalize("Hileler"), 20.0f, TEXTALIGN_ML);
+	Ui()->DoLabel(&Row, BcLocalize("Blatant"), 20.0f, TEXTALIGN_ML);
 	Block.HSplitTop(4.0f, nullptr, &Block);
 	Block.HSplitTop(LineSize, &Row, &Block);
 	DoButton_CheckBoxAutoVMarginAndSet(&s_HacksBlock, BcLocalize("Aimbot Training (UI only)"), &s_AimbotTraining, &Row, 0.0f);
