@@ -98,6 +98,7 @@ TEST(Thread, Lock)
 }
 
 #include <engine/external/readerwriterqueue/ReaderWriterQueue.h>
+
 #include <memory>
 #include <thread>
 
@@ -200,4 +201,3 @@ TEST(Thread, SeqlockVisualizerConcurrentReadWrite)
 	Writer.join();
 	EXPECT_GT(SuccessfulReads, 0);
 }
-
