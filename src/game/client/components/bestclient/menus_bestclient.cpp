@@ -4807,7 +4807,6 @@ void CMenus::RenderSettingsBestClientInfo(CUIRect MainView)
 	RightView.HSplitTop(LineSize * (HideableRows + 0.5f), nullptr, &RightView);
 }
 
-
 void CMenus::RenderSettingsBestClientAlperen(CUIRect MainView)
 {
 	constexpr float LineSize = 24.0f;
