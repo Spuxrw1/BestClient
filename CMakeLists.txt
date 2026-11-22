@@ -2962,10 +2962,6 @@ if(CLIENT)
     components/bestclient/keybind_map_ui.h
     components/bestclient/motion_blur.h
     components/bestclient/motion_blur_opengl.h
-    components/bestclient/motion_blur_opengl.inl
-    components/bestclient/motion_blur_vulkan.inl
-    components/bestclient/motion_blur_vulkan_members.inl
-    components/bestclient/motion_blur_vulkan_state.inl
     components/bestclient/browser_utils.cpp
     components/bestclient/browser_utils.h
     components/bestclient/twitch_chat.cpp
