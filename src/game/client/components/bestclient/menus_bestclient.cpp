@@ -4818,8 +4818,7 @@ void CMenus::RenderSettingsBestClientAlperen(CUIRect MainView)
 	static int s_AvoidSafeDistance = 0;
 	static int s_AvoidIndicator = 0;
 	static CButtonContainer s_HacksBlock;
-	static CButtonContainer s_AvoidBlock;
-	CUIRect Block, Row, Label;
+	CUIRect Block, Row;
 
 	MainView.HSplitTop(30.0f, &Block, &MainView);
 	BestClientUiTheme::DrawUiBlock(&Block, IGraphics::CORNER_ALL, 10.0f);
