@@ -98,6 +98,7 @@ TEST(Thread, Lock)
 }
 
 #include <engine/external/readerwriterqueue/ReaderWriterQueue.h>
+
 #include <memory>
 #include <thread>
 
@@ -153,16 +154,17 @@ TEST(Thread, SeqlockVisualizerConcurrentReadWrite)
 	constexpr int NumBars = 32;
 	constexpr int Iterations = 50000;
 	std::atomic<uint32_t> Seq{0};
-	std::array<float, NumBars> SharedData{};
-	SharedData.fill(0.0f);
+	std::array<std::atomic<float>, NumBars> SharedData{};
+	for(auto &Value : SharedData)
+		Value.store(0.0f, std::memory_order_relaxed);
 	std::atomic<bool> Running{true};
 
 	std::thread Writer([&]() {
 		for(int i = 1; i <= Iterations; ++i)
 		{
-			Seq.fetch_add(1, std::memory_order_release);
+			Seq.fetch_add(1, std::memory_order_acq_rel);
 			for(int j = 0; j < NumBars; ++j)
-				SharedData[j] = static_cast<float>(i);
+				SharedData[j].store(static_cast<float>(i), std::memory_order_relaxed);
 			Seq.fetch_add(1, std::memory_order_release);
 		}
 		Running.store(false, std::memory_order_release);
@@ -177,27 +179,15 @@ TEST(Thread, SeqlockVisualizerConcurrentReadWrite)
 		do
 		{
 			Seq1 = Seq.load(std::memory_order_acquire);
-			int Spins = 0;
-			while(Seq1 & 1)
+			if(Seq1 & 1)
 			{
-				if(++Spins > 32)
-				{
-					std::this_thread::yield();
-					break;
-				}
-#if defined(_MSC_VER)
-				_mm_pause();
-#elif defined(__x86_64__) || defined(__i386__)
-				__builtin_ia32_pause();
-#else
-				std::atomic_thread_fence(std::memory_order_relaxed);
-#endif
-				Seq1 = Seq.load(std::memory_order_acquire);
+				std::this_thread::yield();
+				continue;
 			}
-			LocalCopy = SharedData;
-			std::atomic_thread_fence(std::memory_order_acquire);
+			for(int j = 0; j < NumBars; ++j)
+				LocalCopy[j] = SharedData[j].load(std::memory_order_relaxed);
 			Seq2 = Seq.load(std::memory_order_acquire);
-		} while(Seq1 != Seq2);
+		} while(Seq1 != Seq2 || (Seq2 & 1));
 
 		// Verify no torn reads
 		const float First = LocalCopy[0];
@@ -211,4 +201,3 @@ TEST(Thread, SeqlockVisualizerConcurrentReadWrite)
 	Writer.join();
 	EXPECT_GT(SuccessfulReads, 0);
 }
-

@@ -10,8 +10,8 @@
 #include <engine/shared/config.h>
 
 #if defined(CONF_FAMILY_WINDOWS)
-#include <Windows.h>
 #include <TlHelp32.h>
+#include <Windows.h>
 #include <processthreadsapi.h>
 
 static bool IsDiscordProcessName(const wchar_t *pProcessName)

@@ -3,6 +3,8 @@
 
 #include "menus.h"
 
+#include <game/client/gameclient.h>
+
 // bestclient
 #include <game/client/components/bestclient/menu_media_background.h>
 #include <game/client/components/bestclient/settings_search.h>
@@ -41,7 +43,6 @@
 #include <game/client/components/key_binder.h>
 #include <game/client/components/menu_background.h>
 #include <game/client/components/sounds.h>
-#include <game/client/gameclient.h>
 #include <game/client/ui_listbox.h>
 #include <game/localization.h>
 
@@ -637,6 +638,17 @@ void CMenus::RenderMenubar(CUIRect Box, IClient::EClientState ClientState)
 			NewPage = PAGE_CHANGELOG;
 		}
 		GameClient()->m_Tooltips.DoToolTip(&s_ChangelogButton, &Button, BcLocalize("Changelog"));
+		Box.VSplitRight(10.0f, &Box, nullptr);
+		Box.VSplitRight(33.0f, &Box, &Button);
+
+		static CButtonContainer s_AlperenButton;
+
+		if(DoButton_MenuTab(&s_AlperenButton, FontIcon::NEWSPAPER, ActivePage == PAGE_ALPEREN_MENU, &Button, IGraphics::CORNER_T, &m_aAnimatorsSmallPage[SMALL_TAB_ALPEREN]))
+		{
+			NewPage = PAGE_ALPEREN_MENU;
+		}
+
+		GameClient()->m_Tooltips.DoToolTip(&s_AlperenButton, &Button, Localize("Alperen Menu"));
 		// bestclient
 
 		Box.VSplitRight(10.0f, &Box, nullptr);
@@ -739,8 +751,8 @@ void CMenus::RenderMenubar(CUIRect Box, IClient::EClientState ClientState)
 			Box.VSplitLeft(BrowserButtonWidth, &Button, &Box);
 			const int Page = PAGE_FAVORITE_COMMUNITY_1 + FavoriteCommunityIndex;
 			const bool IsLastVisibleCommunity = FavoriteCommunityIndex + 1 >= ServerBrowser()->FavoriteCommunities().size() ||
-							   FavoriteCommunityIndex + 1 >= std::size(s_aFavoriteCommunityButtons) ||
-							   Box.w < BrowserButtonWidth;
+							    FavoriteCommunityIndex + 1 >= std::size(s_aFavoriteCommunityButtons) ||
+							    Box.w < BrowserButtonWidth;
 			const int CommunityCorners = IsLastVisibleCommunity ? IGraphics::CORNER_TR : IGraphics::CORNER_NONE;
 			if(DoButton_MenuTab(&s_aFavoriteCommunityButtons[FavoriteCommunityIndex], FontIcon::ELLIPSIS, ActivePage == Page, &Button, CommunityCorners, &m_aAnimatorsBigPage[BIT_TAB_FAVORITE_COMMUNITY_1 + FavoriteCommunityIndex], nullptr, nullptr, nullptr, BrowserTabRounding, m_CommunityIcons.Find(pCommunity->Id()), false, IGraphics::CORNER_T, BrowserTabHoverRounding))
 			{
@@ -1281,12 +1293,104 @@ void CMenus::Render()
 			{
 				RenderSettings(MainView);
 			}
-			// bestclient
 			else if(m_MenuPage == PAGE_CHANGELOG)
 			{
 				RenderChangelog(MainView);
 			}
-			// bestclient
+			else if(m_MenuPage == PAGE_ALPEREN_MENU)
+			{
+				static int s_SelectedFeature = 0;
+				static CButtonContainer s_aFeatureButtons[2];
+				int *apBlatantValues[] = {
+					&g_Config.m_AlperenAimbot,
+					&g_Config.m_AlperenHookbot,
+					&g_Config.m_AlperenAutoFire,
+					&g_Config.m_AlperenAutoHammer,
+					&g_Config.m_AlperenAimAssist,
+					&g_Config.m_AlperenTargetSelection};
+
+				int *apAvoidValues[] = {
+					&g_Config.m_AlperenPlayerDetection,
+					&g_Config.m_AlperenDangerWarning,
+					&g_Config.m_AlperenSafeDistance,
+					&g_Config.m_AlperenAvoidIndicator};
+				static CButtonContainer s_aOptionButtons[10];
+
+				const char *apBlatantOptions[] = {
+					"Aimbot Training",
+					"Hookbot Training",
+					"Auto Fire Demo",
+					"Auto Hammer Demo",
+					"Aim Assist Training",
+					"Target Selection"};
+
+				const char *apAvoidOptions[] = {
+					"Player Detection",
+					"Danger Zone Warning",
+					"Safe Distance",
+					"Avoidance Indicator"};
+
+				const char *apFeatureNames[] = {
+					"Blatant",
+					"Avoid"};
+
+				CUIRect Title, Content;
+				MainView.HSplitTop(50.0f, &Title, &Content);
+				Ui()->DoLabel(&Title, "ALPEREN MENU", 26.0f, TEXTALIGN_CENTER);
+				Content.Margin(12.0f, &Content);
+
+				for(int i = 0; i < 2; i++)
+				{
+					CUIRect Button;
+					Content.HSplitTop(42.0f, &Button, &Content);
+
+					if(DoButton_Menu(&s_aFeatureButtons[i], apFeatureNames[i], s_SelectedFeature == i, &Button))
+						s_SelectedFeature = i;
+
+					Content.HSplitTop(8.0f, nullptr, &Content);
+				}
+
+				CUIRect FeatureTitle;
+				Content.HSplitTop(35.0f, &FeatureTitle, &Content);
+				Ui()->DoLabel(&FeatureTitle, apFeatureNames[s_SelectedFeature], 22.0f, TEXTALIGN_CENTER);
+
+				if(s_SelectedFeature == 0)
+				{
+					for(int i = 0; i < 6; i++)
+					{
+						CUIRect Button;
+						Content.HSplitTop(32.0f, &Button, &Content);
+
+						char aLabel[128];
+						str_format(aLabel, sizeof(aLabel), "%s: %s",
+							apBlatantOptions[i],
+							*apBlatantValues[i] ? "ON" : "OFF");
+
+						if(DoButton_Menu(&s_aOptionButtons[i], aLabel, *apBlatantValues[i], &Button))
+							*apBlatantValues[i] = !*apBlatantValues[i];
+
+						Content.HSplitTop(4.0f, nullptr, &Content);
+					}
+				}
+				else
+				{
+					for(int i = 0; i < 4; i++)
+					{
+						CUIRect Button;
+						Content.HSplitTop(32.0f, &Button, &Content);
+
+						char aLabel[128];
+						str_format(aLabel, sizeof(aLabel), "%s: %s",
+							apAvoidOptions[i],
+							*apAvoidValues[i] ? "ON" : "OFF");
+
+						if(DoButton_Menu(&s_aOptionButtons[6 + i], aLabel, *apAvoidValues[i], &Button))
+							*apAvoidValues[i] = !*apAvoidValues[i];
+
+						Content.HSplitTop(4.0f, nullptr, &Content);
+					}
+				}
+			}
 			else
 			{
 				dbg_assert_failed("Invalid m_MenuPage: %d", m_MenuPage);
@@ -1294,10 +1398,10 @@ void CMenus::Render()
 
 			// bestclient
 			const bool AssetsEditorConfirmOpen = m_AssetsEditorState.m_Open &&
-				m_AssetsEditorState.m_ExploreSide < 0 && m_AssetsEditorState.m_ShowExitConfirm &&
-				g_Config.m_UiSettingsPage == SETTINGS_ASSETS;
+							     m_AssetsEditorState.m_ExploreSide < 0 && m_AssetsEditorState.m_ShowExitConfirm &&
+							     g_Config.m_UiSettingsPage == SETTINGS_ASSETS;
 			if(!AssetsEditorConfirmOpen)
-			// bestclient
+				// bestclient
 				RenderMenubar(TabBar, ClientState);
 		}
 		break;
@@ -1358,10 +1462,10 @@ void CMenus::Render()
 
 			// bestclient
 			const bool AssetsEditorConfirmOpen = m_AssetsEditorState.m_Open &&
-				m_AssetsEditorState.m_ExploreSide < 0 && m_AssetsEditorState.m_ShowExitConfirm &&
-				g_Config.m_UiSettingsPage == SETTINGS_ASSETS;
+							     m_AssetsEditorState.m_ExploreSide < 0 && m_AssetsEditorState.m_ShowExitConfirm &&
+							     g_Config.m_UiSettingsPage == SETTINGS_ASSETS;
 			if(!AssetsEditorConfirmOpen)
-			// bestclient
+				// bestclient
 				RenderMenubar(TabBar, ClientState);
 		}
 		break;
@@ -2655,8 +2759,8 @@ void CMenus::OnWindowResize()
 {
 	TextRender()->DeleteTextContainer(m_MotdTextContainerIndex);
 }
-
 void CMenus::OnRender()
+
 {
 	if(Client()->State() != IClient::STATE_ONLINE && Client()->State() != IClient::STATE_DEMOPLAYBACK)
 		SetActive(true);
