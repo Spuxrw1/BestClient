@@ -29,6 +29,7 @@
 #include <game/client/gameclient.h>
 #include <game/client/prediction/entities/character.h>
 #include <game/layers.h>
+#include <game/mapitems.h>
 #include <game/localization.h>
 
 #include <algorithm>
@@ -2353,6 +2354,55 @@ void CHud::OnNewSnapshot()
 		}
 		m_aPlayerSpeed[i] = AbsVel;
 	}
+}
+
+void CHud::RenderAvoidFreezeWarning()
+{
+	if(!g_Config.m_AlperenDangerWarning || !GameClient()->m_Snap.m_pLocalCharacter || GameClient()->m_Snap.m_SpecInfo.m_Active)
+		return;
+
+	const int LocalClientId = GameClient()->m_Snap.m_LocalClientId;
+	if(LocalClientId < 0 || LocalClientId >= MAX_CLIENTS)
+		return;
+
+	const CCharacterCore &Predicted = GameClient()->m_PredictedChar;
+	const bool Frozen = Predicted.m_IsInFreeze ||
+		GameClient()->m_aClients[LocalClientId].m_FreezeEnd > 0 ||
+		GameClient()->m_aClients[LocalClientId].m_DeepFrozen;
+
+	const auto IsFreezeTile = [](int Tile) {
+		return Tile == TILE_FREEZE || Tile == TILE_DFREEZE || Tile == TILE_LFREEZE;
+	};
+
+	bool FreezeAhead = false;
+	const float Speed = length(Predicted.m_Vel);
+	for(int i = 0; i < 3; ++i)
+	{
+		const float Distance = 24.0f * i;
+		if(Distance > 0.0f && Speed < 0.1f)
+			break;
+
+		vec2 CheckPos = Predicted.m_Pos;
+		if(Distance > 0.0f)
+			CheckPos += Predicted.m_Vel * (Distance / Speed);
+
+		if(IsFreezeTile(GameClient()->Collision()->GetCollisionAt(CheckPos.x, CheckPos.y)) ||
+			IsFreezeTile(GameClient()->Collision()->GetFrontCollisionAt(CheckPos.x, CheckPos.y)))
+		{
+			FreezeAhead = true;
+			break;
+		}
+	}
+
+	if(!Frozen && !FreezeAhead)
+		return;
+
+	const char *pWarning = Frozen ? Localize("FROZEN! Use your hook to escape.") : Localize("FREEZE AHEAD! Be ready to hook.");
+	const float FontSize = 14.0f;
+	const float Width = TextRender()->TextWidth(FontSize, pWarning, -1, -1.0f);
+	TextRender()->TextColor(1.0f, 0.25f, 0.25f, 1.0f);
+	TextRender()->Text((m_Width - Width) / 2.0f, 52.0f, FontSize, pWarning, -1.0f);
+	TextRender()->TextColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void CHud::OnRender()
