@@ -628,3 +628,5 @@ MACRO_CONFIG_INT(BcKeybindMapFormat, bc_keybind_map_format, 2, 0, 2, CFGFLAG_CLI
 
 // Profiler
 MACRO_CONFIG_INT(BcProfiler, bc_profiler, 0, 0, 1, CFGFLAG_CLIENT, "Show the BestClient profiler overlay")
+
+MACRO_CONFIG_INT(BcMyShowSpeed, bc_my_show_speed, 0, 0, 1, CFGFLAG_CLIENT | CFGFLAG_SAVE, "Show speed indicator")

@@ -53,6 +53,7 @@ enum
 	BESTCLIENT_TAB_OTHERS,
 	BESTCLIENT_TAB_CONFIGS,
 	BESTCLIENT_TAB_INFO,
+	BESTCLIENT_TAB_MYMENU,
 	NUM_BESTCLIENT_TABS,
 };
 
@@ -753,12 +754,14 @@ void CMenus::RenderSettingsBestClient(CUIRect MainView)
 		BcLocalize("Others"),
 		BcLocalize("Configs"),
 		BcLocalize("Info"),
+		BcLocalize("My Menu"),
 	};
 	const int aTabOrder[NUM_BESTCLIENT_TABS] = {
 		BESTCLIENT_TAB_VISUALS,
 		BESTCLIENT_TAB_GAMEPLAY,
 		BESTCLIENT_TAB_OTHERS,
 		BESTCLIENT_TAB_CONFIGS,
+		BESTCLIENT_TAB_MYMENU,
 		BESTCLIENT_TAB_INFO,
 	};
 
@@ -838,6 +841,8 @@ void CMenus::RenderSettingsBestClient(CUIRect MainView)
 			RenderSettingsBestClientOthers(Content);
 		else if(Tab == BESTCLIENT_TAB_CONFIGS)
 			RenderSettingsBestClientConfigPresets(Content);
+		else if(Tab == BESTCLIENT_TAB_MYMENU)
+			RenderSettingsBestClientMyMenu(Content);
 		else if(Tab == BESTCLIENT_TAB_INFO)
 			RenderSettingsBestClientInfo(Content);
 	};
@@ -4081,6 +4086,21 @@ void CMenus::RenderSettingsBestClientGameplay(CUIRect MainView)
 	s_GameplayScrollRegion.End();
 }
 
+void CMenus::RenderSettingsBestClientMyMenu(CUIRect MainView)
+{
+	const float LineSize = 20.0f;
+	const float MarginSmall = 5.0f;
+	const float HeadlineFontSize = 20.0f;
+
+	CUIRect Label;
+	MainView.HSplitTop(HeadlineFontSize, &Label, &MainView);
+	Ui()->DoLabel(&Label, BcLocalize("My Menu"), HeadlineFontSize, TEXTALIGN_ML);
+	MainView.HSplitTop(MarginSmall, nullptr, &MainView);
+
+	// Ornek ayar: hiz gostergesi (ozelligin kendisi sonraki adimda HUD'a baglanacak)
+	DoButton_CheckBoxAutoVMarginAndSet(&g_Config.m_BcMyShowSpeed, BcLocalize("Show speed indicator"), &g_Config.m_BcMyShowSpeed, &MainView, LineSize);
+}
+
 void CMenus::RenderSettingsBestClientOthers(CUIRect MainView)
 {
 	const float LineSize = 20.0f;
@@ -4771,12 +4791,14 @@ void CMenus::RenderSettingsBestClientInfo(CUIRect MainView)
 		BcLocalize("Others"),
 		BcLocalize("Configs"),
 		BcLocalize("Info"),
+		BcLocalize("My Menu"),
 	};
 	const int aTabOrder[NUM_BESTCLIENT_TABS] = {
 		BESTCLIENT_TAB_VISUALS,
 		BESTCLIENT_TAB_GAMEPLAY,
 		BESTCLIENT_TAB_OTHERS,
 		BESTCLIENT_TAB_CONFIGS,
+		BESTCLIENT_TAB_MYMENU,
 		BESTCLIENT_TAB_INFO,
 	};
 

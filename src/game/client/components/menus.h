@@ -804,7 +804,7 @@ public:
 		PAGE_NETWORK,
 		PAGE_GHOST,
 		PAGE_CHANGELOG, // bestclient
-
+PAGE_Zane_MENU,
 		PAGE_LENGTH,
 	};
 
@@ -873,7 +873,7 @@ public:
 		// bestclient
 		SMALL_TAB_BROWSER_FRIENDS,
 		SMALL_TAB_CHANGELOG, // bestclient
-
+SMALL_TAB_Zane,
 		SMALL_TAB_LENGTH,
 	};
 
@@ -1019,6 +1019,7 @@ private:
 	void RenderSettingsBestClientVisuals(CUIRect MainView);
 	void RenderSettingsBestClientGameplay(CUIRect MainView);
 	void RenderSettingsBestClientOthers(CUIRect MainView);
+	void RenderSettingsBestClientMyMenu(CUIRect MainView); // my menu
 	// bestclient
 	void RenderSettingsBestClientFun(CUIRect MainView);
 	// bestclient
