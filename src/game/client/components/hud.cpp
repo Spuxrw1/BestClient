@@ -29,8 +29,8 @@
 #include <game/client/gameclient.h>
 #include <game/client/prediction/entities/character.h>
 #include <game/layers.h>
-#include <game/mapitems.h>
 #include <game/localization.h>
+#include <game/mapitems.h>
 
 #include <algorithm>
 #include <cmath>
@@ -2367,8 +2367,8 @@ void CHud::RenderAvoidFreezeWarning()
 
 	const CCharacterCore &Predicted = GameClient()->m_PredictedChar;
 	const bool Frozen = Predicted.m_IsInFreeze ||
-		GameClient()->m_aClients[LocalClientId].m_FreezeEnd > 0 ||
-		GameClient()->m_aClients[LocalClientId].m_DeepFrozen;
+			    GameClient()->m_aClients[LocalClientId].m_FreezeEnd > 0 ||
+			    GameClient()->m_aClients[LocalClientId].m_DeepFrozen;
 
 	const auto IsFreezeTile = [](int Tile) {
 		return Tile == TILE_FREEZE || Tile == TILE_DFREEZE || Tile == TILE_LFREEZE;
