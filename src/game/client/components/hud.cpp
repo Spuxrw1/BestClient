@@ -2495,6 +2495,7 @@ void CHud::OnRender()
 			if(!(FocusModeActive && HideUIInFocusMode))
 				RenderDummyActions();
 			RenderFrozenHud();
+			RenderAvoidFreezeWarning();
 			RenderNotifyLast();
 			if(!(FocusModeActive && HideUIInFocusMode))
 				RenderLocalTime();
