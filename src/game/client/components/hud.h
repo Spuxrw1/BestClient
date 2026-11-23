@@ -109,6 +109,7 @@ class CHud : public CComponent
 
 	void RenderGameTimer();
 	void RenderPauseNotification();
+	void RenderAvoidFreezeWarning();
 	void RenderSuddenDeath();
 
 	void RenderScoreHud(bool ForcePreview = false); // bestclient
