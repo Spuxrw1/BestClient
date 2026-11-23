@@ -4813,7 +4813,7 @@ void CMenus::RenderSettingsBestClientAlperen(CUIRect MainView)
 	constexpr float Margin = 8.0f;
 	static int s_AimbotTraining = 0;
 	static int s_AvoidPlayerDetection = 0;
-	static int s_AvoidDangerWarning = 0;
+	static CButtonContainer s_AvoidDangerWarningButton;
 	static int s_AvoidSafeDistance = 0;
 	static int s_AvoidIndicator = 0;
 	static CButtonContainer s_HacksBlock;
@@ -4836,12 +4836,12 @@ void CMenus::RenderSettingsBestClientAlperen(CUIRect MainView)
 	Ui()->DoLabel(&Row, BcLocalize("Avoid"), 20.0f, TEXTALIGN_ML);
 	Block.HSplitTop(4.0f, nullptr, &Block);
 	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidPlayerDetection, BcLocalize("Player detection (UI only)"), &s_AvoidPlayerDetection, &Block, 2.0f);
-	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidDangerWarning, BcLocalize("Danger warning (UI only)"), &s_AvoidDangerWarning, &Block, 2.0f);
+	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidDangerWarningButton, BcLocalize("Freeze warning (HUD)"), &g_Config.m_AlperenDangerWarning, &Block, 2.0f);
 	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidSafeDistance, BcLocalize("Safe distance (UI only)"), &s_AvoidSafeDistance, &Block, 2.0f);
 	DoButton_CheckBoxAutoVMarginAndSet(&s_AvoidIndicator, BcLocalize("Avoid indicator (UI only)"), &s_AvoidIndicator, &Block, 2.0f);
 
 	MainView.HSplitTop(Margin, nullptr, &MainView);
-	Ui()->DoLabel(&MainView, BcLocalize("These are interface-only practice options; no automated aiming or gameplay actions are performed."), 12.0f, TEXTALIGN_ML);
+	Ui()->DoLabel(&MainView, BcLocalize("Freeze warning checks nearby freeze tiles. Use your hook manually to escape."), 12.0f, TEXTALIGN_ML);
 }
 
 void CMenus::RenderSettingsBestClientWeaponGlow(CUIRect &Column)
